@@ -3,9 +3,10 @@ package calculator.operation;
 import calculator.exception.ErrorMessage;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public enum ArithmeticOperation {
 
@@ -17,22 +18,24 @@ public enum ArithmeticOperation {
     private final String expression;
     private final BiFunction<Integer, Integer, Integer> function;
 
-    public static final Map<String, ArithmeticOperation> map = new HashMap<>();
-    static {
-        Arrays.stream(ArithmeticOperation.values())
-                .forEach(value -> map.put(value.expression, value));
-    }
+    private static final Map<String, ArithmeticOperation> OPERATIONS =
+            Arrays.stream(ArithmeticOperation.values())
+                    .collect(Collectors.toMap(ArithmeticOperation::getExpression, Function.identity()));
 
     ArithmeticOperation(final String expression, final BiFunction<Integer, Integer, Integer> function) {
         this.expression = expression;
         this.function = function;
     }
 
+    private String getExpression() {
+        return this.expression;
+    }
+
     public static ArithmeticOperation fromExpression(final String expression) {
-        if (map.containsKey(expression)) {
-            return map.get(expression);
+        if (!OPERATIONS.containsKey(expression)) {
+            throw new IllegalArgumentException(String.format(ErrorMessage.NOT_SUPPORTED_ARITHMETIC, expression));
         }
-        throw new IllegalArgumentException(String.format(ErrorMessage.NOT_SUPPORTED_ARITHMETIC, expression));
+        return OPERATIONS.get(expression);
     }
 
     public Integer operate(final Integer operandX, final Integer operandY) {
