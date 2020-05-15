@@ -9,7 +9,7 @@ public class Car {
 
     private Car() {}
 
-    public Car(final String name) {
+    private Car(final String name) {
         if (StringUtil.isEmpty(name)) {
             throw new IllegalArgumentException("Name can't be null or empty string");
         }
