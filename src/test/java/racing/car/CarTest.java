@@ -53,4 +53,18 @@ class CarTest {
         );
     }
 
+    @Test
+    @DisplayName("선두인지 아닌지")
+    void isLeader() {
+        Car leaderCar = Car.of("선두");
+        Car car = Car.of("선두아냐");
+
+        leaderCar.move(() -> true);
+        leaderCar.move(() -> true);
+
+        int leadingPosition = 2;
+
+        assertThat(leaderCar.isLeader(leadingPosition)).isTrue();
+        assertThat(car.isLeader(leadingPosition)).isFalse();
+    }
 }

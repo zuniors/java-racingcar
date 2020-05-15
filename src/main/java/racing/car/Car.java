@@ -33,6 +33,10 @@ public class Car {
         return curPosition;
     }
 
+    public boolean isLeader(final int leadingPosition) {
+        return curPosition == leadingPosition;
+    }
+
     public void move(MoveStrategy moveStrategy) {
         if (moveStrategy.isMovable()) {
             curPosition++;
