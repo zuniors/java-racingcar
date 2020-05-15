@@ -28,6 +28,18 @@ public class RacingGame {
         this.moveStrategy = moveStrategy;
     }
 
+    public RacingGame(final String namesStr, final int round) {
+        this(namesStr, round, new RandomMoveStrategy(new Random()));
+    }
+
+    public RacingGame(final String namesStr, final int round, final MoveStrategy moveStrategy) {
+        validate(round);
+
+        this.round = round;
+        this.cars = Cars.init(namesStr);
+        this.moveStrategy = moveStrategy;
+    }
+
     private void validate(int round) {
         if(round <= MINIMUM_ROUND) {
             throw new IllegalArgumentException("Racing game round must be greater than " + MINIMUM_ROUND);
@@ -38,8 +50,16 @@ public class RacingGame {
         return new RacingGame(numOfCars, round, moveStrategy);
     }
 
+    public static RacingGame init(final String namesStr, final int round, final MoveStrategy moveStrategy) {
+        return new RacingGame(namesStr, round, moveStrategy);
+    }
+
     public static RacingGame init(final int numOfCars, final int round) {
         return new RacingGame(numOfCars, round);
+    }
+
+    public static RacingGame init(final String namesStr, final int round) {
+        return new RacingGame(namesStr, round);
     }
 
     public void race() {

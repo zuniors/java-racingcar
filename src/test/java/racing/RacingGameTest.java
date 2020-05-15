@@ -23,6 +23,13 @@ class RacingGameTest {
                 .doesNotThrowAnyException();
     }
 
+    @Test
+    @DisplayName("초기화")
+    void init2() {
+        assertThatCode(() -> RacingGame.init("name", 1))
+                .doesNotThrowAnyException();
+    }
+
     @ParameterizedTest
     @CsvSource(value = {"1,-1", "0,1", "0,-1"})
     @DisplayName("초기화 실패 테스트")
@@ -31,8 +38,25 @@ class RacingGameTest {
                 .isThrownBy(() -> RacingGame.init(numOfCars, round));
     }
 
+    @ParameterizedTest
+    @MethodSource
+    @DisplayName("초기화 실패 테스트")
+    void initFail2(final String namesStr, final int round) {
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> RacingGame.init(namesStr, round));
+    }
+
+    private static Stream<Arguments> initFail2() {
+        return Stream.of(
+                Arguments.of(null, 1),
+                Arguments.of("", 1),
+                Arguments.of("name", -1)
+        );
+    }
+
     @Test
     @DisplayName("게임 오버 테스트")
+
     void isGameOver() {
         RacingGame racingGame = RacingGame.init(1, 2);
 
