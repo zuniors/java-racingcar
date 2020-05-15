@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
 import racing.move.MoveStrategy;
 
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.*;
 
 @DisplayName("자동차 테스트")
 class CarTest {
@@ -18,6 +18,20 @@ class CarTest {
     @DisplayName("정적 팩토리 메소드 테스트")
     void newInstance() {
         assertThatCode(Car::newInstance).doesNotThrowAnyException();
+    }
+
+    @Test
+    @DisplayName("of 정적 팩토레 메소드")
+    void of() {
+        assertThatCode(() -> Car.of("name")).doesNotThrowAnyException();
+    }
+
+    @ParameterizedTest
+    @NullAndEmptySource
+    @DisplayName("null 혹은 빈 이름이 들어왔을 때 예외를 발생")
+    void ofException(final String name) {
+        assertThatIllegalArgumentException()
+                .isThrownBy(() -> Car.of(name));
     }
 
     @ParameterizedTest
