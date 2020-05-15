@@ -14,11 +14,6 @@ import static org.assertj.core.api.Assertions.*;
 
 @DisplayName("자동차 테스트")
 class CarTest {
-    @Test
-    @DisplayName("정적 팩토리 메소드 테스트")
-    void newInstance() {
-        assertThatCode(Car::newInstance).doesNotThrowAnyException();
-    }
 
     @Test
     @DisplayName("of 정적 팩토레 메소드")
@@ -38,7 +33,7 @@ class CarTest {
     @MethodSource
     @DisplayName("무브 테스트")
     void move(final MoveStrategy moveStrategy, final boolean isMoveExpected) {
-        Car car = Car.newInstance();
+        Car car = Car.of("name");
         int prevPosition = car.curPosition();
 
         car.move(moveStrategy);

@@ -4,10 +4,8 @@ import racing.move.MoveStrategy;
 import racing.util.StringUtil;
 
 public class Car {
-    private String name;
+    private final String name;
     private int curPosition;
-
-    private Car() {}
 
     private Car(final String name) {
         if (StringUtil.isEmpty(name)) {
@@ -15,10 +13,6 @@ public class Car {
         }
 
         this.name = name;
-    }
-
-    public static Car newInstance() {
-        return new Car();
     }
 
     public static Car of(final String name) {

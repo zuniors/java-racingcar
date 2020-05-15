@@ -19,30 +19,16 @@ import static org.assertj.core.api.Assertions.*;
 class CarsTest {
 
     @Test
-    @DisplayName("of 정적 팩토리 메소드 테스트")
-    void of() {
-        assertThatCode(() -> Cars.init(10)).doesNotThrowAnyException();
-    }
-
-    @Test
     @DisplayName("이름 배열을 받는 of 정적 팩토리 메소드 테스트")
-    void ofWithNameArr() {
+    void of() {
         assertThatCode(() -> Cars.init("a,b,c"))
                 .doesNotThrowAnyException();
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {0, -1})
-    @DisplayName("of 정적 팩토리 메소드에 올바르지 않은 인풋이 들어왔을때")
-    void ofException(final int numOfCars) {
-        assertThatIllegalArgumentException()
-                .isThrownBy(() -> Cars.init(numOfCars));
-    }
-
-    @ParameterizedTest
     @NullAndEmptySource
     @DisplayName("of 정적 팩토리 메소드에 올바르지 않은 인풋이 들어왔을때")
-    void ofExceptionWithNameArr(final String namesStr) {
+    void ofException(final String namesStr) {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> Cars.init(namesStr));
     }
@@ -51,7 +37,7 @@ class CarsTest {
     @MethodSource
     @DisplayName("cars 움직이기 테스트")
     void moveAll(final MoveStrategy moveStrategy, final boolean isMovingExpected) {
-        Cars cars = Cars.init(10);
+        Cars cars = Cars.init("1,2");
 
         int prevPosition = cars.getCarDtos()
                 .get(0)

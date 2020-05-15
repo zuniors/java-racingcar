@@ -19,34 +19,19 @@ class RacingGameTest {
     @Test
     @DisplayName("초기화")
     void init() {
-        assertThatCode(() -> RacingGame.init(1, 1))
-                .doesNotThrowAnyException();
-    }
-
-    @Test
-    @DisplayName("초기화")
-    void init2() {
         assertThatCode(() -> RacingGame.init("name", 1))
                 .doesNotThrowAnyException();
     }
 
     @ParameterizedTest
-    @CsvSource(value = {"1,-1", "0,1", "0,-1"})
-    @DisplayName("초기화 실패 테스트")
-    void initFail(final int numOfCars, final int round) {
-        assertThatIllegalArgumentException()
-                .isThrownBy(() -> RacingGame.init(numOfCars, round));
-    }
-
-    @ParameterizedTest
     @MethodSource
     @DisplayName("초기화 실패 테스트")
-    void initFail2(final String namesStr, final int round) {
+    void initFail(final String namesStr, final int round) {
         assertThatIllegalArgumentException()
                 .isThrownBy(() -> RacingGame.init(namesStr, round));
     }
 
-    private static Stream<Arguments> initFail2() {
+    private static Stream<Arguments> initFail() {
         return Stream.of(
                 Arguments.of(null, 1),
                 Arguments.of("", 1),
@@ -58,7 +43,7 @@ class RacingGameTest {
     @DisplayName("게임 오버 테스트")
 
     void isGameOver() {
-        RacingGame racingGame = RacingGame.init(1, 2);
+        RacingGame racingGame = RacingGame.init("name", 2);
 
         assertThat(racingGame.isRaceOver()).isFalse();
         racingGame.race();
@@ -73,7 +58,7 @@ class RacingGameTest {
     @MethodSource
     @DisplayName("레이스 테스트")
     void race(final MoveStrategy moveStrategy, final int beforePosition, final int afterPosition) {
-        RacingGame racingGame = RacingGame.init(2, 1, moveStrategy);
+        RacingGame racingGame = RacingGame.init("name,name2", 1, moveStrategy);
 
         racingGame.curState()
                 .forEach(carDto -> assertThat(carDto.getPosition()).isEqualTo(beforePosition));
@@ -94,7 +79,7 @@ class RacingGameTest {
     @Test
     @DisplayName("더이상 레이스를 진행할 수 없음")
     void raceException() {
-        RacingGame racingGame = RacingGame.init(1, 1);
+        RacingGame racingGame = RacingGame.init("name", 1);
 
         assertThatCode(racingGame::race).doesNotThrowAnyException();
         assertThatThrownBy(racingGame::race).isInstanceOf(InvalidAccessException.class);

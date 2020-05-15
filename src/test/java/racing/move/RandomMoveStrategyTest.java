@@ -29,7 +29,6 @@ class RandomMoveStrategyTest {
         );
     }
 
-
     static class TestRandom extends Random {
         private final int fixedValue;
 
