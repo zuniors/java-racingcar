@@ -78,4 +78,8 @@ public class RacingGame {
     public List<CarDto> curState() {
         return cars.getCarDtos();
     }
+
+    public List<CarDto> getWinners() {
+        return cars.getWinners();
+    }
 }

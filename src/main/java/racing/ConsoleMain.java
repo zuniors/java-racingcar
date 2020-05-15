@@ -16,5 +16,7 @@ public class ConsoleMain {
 
             ResultView.printCurState(racingGame.curState());
         }
+
+        ResultView.printWinners(racingGame.getWinners());
     }
 }
