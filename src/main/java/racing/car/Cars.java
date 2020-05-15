@@ -25,7 +25,7 @@ public class Cars {
         }
     }
 
-    public static Cars of(int numOfCars) {
+    public static Cars init(int numOfCars) {
         return new Cars(numOfCars);
     }
 

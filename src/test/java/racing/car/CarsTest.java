@@ -18,7 +18,7 @@ class CarsTest {
     @Test
     @DisplayName("of 정적 팩토리 메소드 테스트")
     void of() {
-        assertThatCode(() -> Cars.of(10)).doesNotThrowAnyException();
+        assertThatCode(() -> Cars.init(10)).doesNotThrowAnyException();
     }
 
     @ParameterizedTest
@@ -26,14 +26,14 @@ class CarsTest {
     @DisplayName("of 정적 팩토리 메소드에 올바르지 않은 인풋이 들어왔을때")
     void ofException(final int numOfCars) {
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> Cars.of(numOfCars));
+                .isThrownBy(() -> Cars.init(numOfCars));
     }
 
     @ParameterizedTest
     @MethodSource
     @DisplayName("cars 움직이기 테스트")
     void moveAll(final MoveStrategy moveStrategy, final boolean isMovingExpected) {
-        Cars cars = Cars.of(10);
+        Cars cars = Cars.init(10);
 
         int prevPosition = cars.getCarDtos()
                 .get(0)

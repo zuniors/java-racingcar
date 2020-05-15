@@ -24,7 +24,7 @@ public class RacingGame {
         validate(round);
 
         this.round = round;
-        this.cars = Cars.of(numOfCars);
+        this.cars = Cars.init(numOfCars);
         this.moveStrategy = moveStrategy;
     }
 
