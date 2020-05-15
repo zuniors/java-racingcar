@@ -17,15 +17,15 @@ public class ResultView {
     }
 
     public static void printCurState(List<CarDto> cars) {
-        cars.stream()
-                .map(CarDto::getPosition)
-                .forEach(ResultView::printCarMovement);
+        cars.forEach(ResultView::printCarMovement);
 
         printNewLine();
     }
 
-    private static void printCarMovement(final int carPosition) {
-        IntStream.rangeClosed(0, carPosition)
+    private static void printCarMovement(final CarDto car) {
+        System.out.print(car.getName() + " : ");
+
+        IntStream.rangeClosed(0, car.getPosition())
                 .forEach(i -> System.out.print(MOVE_MARK));
 
         printNewLine();
