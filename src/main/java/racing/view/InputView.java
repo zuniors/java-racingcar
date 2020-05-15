@@ -9,23 +9,23 @@ public class InputView {
 
     private InputView() {}
 
-    public static int inputNumOfCars() {
+    public static int getNumOfCars() {
         printStatement(INPUT_NUM_OF_CARS_STATEMENT);
 
-        return getInt();
+        return takeIntInput();
     }
 
-    public static int inputRound() {
+    public static int getRound() {
         printStatement(INPUT_ROUND_STATEMENT);
 
-        return getInt();
+        return takeIntInput();
     }
 
     private static void printStatement(final String statement) {
         System.out.println(statement);
     }
 
-    private static int getInt() {
+    private static int takeIntInput() {
         return Integer.parseInt(SCANNER.nextLine());
     }
 }
