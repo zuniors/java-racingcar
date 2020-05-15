@@ -25,7 +25,7 @@ class CarsTest {
     @Test
     @DisplayName("이름 배열을 받는 of 정적 팩토리 메소드 테스트")
     void ofWithNameArr() {
-        assertThatCode(() -> Cars.init(new String[] {"a", "b", "c"}))
+        assertThatCode(() -> Cars.init("a,b,c"))
                 .doesNotThrowAnyException();
     }
 
@@ -40,9 +40,9 @@ class CarsTest {
     @ParameterizedTest
     @NullAndEmptySource
     @DisplayName("of 정적 팩토리 메소드에 올바르지 않은 인풋이 들어왔을때")
-    void ofExceptionWithNameArr(final String[] names) {
+    void ofExceptionWithNameArr(final String namesStr) {
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> Cars.init(names));
+                .isThrownBy(() -> Cars.init(namesStr));
     }
 
     @ParameterizedTest
