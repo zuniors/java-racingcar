@@ -61,4 +61,20 @@ public class Cars {
                 .map(CarDto::of)
                 .collect(Collectors.toList());
     }
+
+    public List<CarDto> getWinners() {
+        int leadingPosition = leadingPosition();
+
+        return cars.stream()
+                .filter(car -> car.isLeader(leadingPosition))
+                .map(CarDto::of)
+                .collect(Collectors.toList());
+    }
+
+    private int leadingPosition() {
+        return cars.stream()
+                .mapToInt(Car::curPosition)
+                .max()
+                .orElseThrow(RuntimeException::new);
+    }
 }

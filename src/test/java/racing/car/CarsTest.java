@@ -9,6 +9,8 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 import racing.move.MoveStrategy;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
@@ -69,5 +71,33 @@ class CarsTest {
                 Arguments.of((MoveStrategy)() -> true, true),
                 Arguments.of((MoveStrategy)() -> false, false)
         );
+    }
+
+    @Test
+    @DisplayName("리더 구하기")
+    void getWinner() {
+        Cars cars = Cars.init("1,2,3");
+
+        assertThat(cars.getWinners().size()).isEqualTo(3);
+
+        cars.moveAll(new TrueTrueFalseStrategy());
+
+        List<String> winnerNames = cars.getWinners()
+                .stream()
+                .map(CarDto::getName)
+                .collect(Collectors.toList());
+
+        assertThat(winnerNames.size()).isEqualTo(2);
+        assertThat(winnerNames).containsExactly("1", "2");
+
+    }
+
+    private static class TrueTrueFalseStrategy implements MoveStrategy {
+        int num;
+
+        @Override
+        public boolean isMovable() {
+            return ++num / 3 == 0;
+        }
     }
 }
