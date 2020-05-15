@@ -72,7 +72,7 @@ public class RacingGame {
     }
 
     public boolean isRaceOver() {
-        return round <= 0;
+        return round <= MINIMUM_ROUND;
     }
 
     public List<CarDto> curState() {
